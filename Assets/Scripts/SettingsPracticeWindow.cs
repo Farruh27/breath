@@ -24,7 +24,9 @@ public class SettingsPracticeWindow : Window
     private PracticeInfoData _data;
     private int _intensityDuration;
 
+    public Action<PracticeInfoData, int> OnStartPractice;
     public Action OnCloseWindow;
+    
     private Sequence _sequence;
 
     public void Init(PracticeInfoData practiceInfoData)
@@ -41,7 +43,14 @@ public class SettingsPracticeWindow : Window
 
     private void SubscriptionButtons()
     {
+        _startPracticeButton.onClick.AddListener(StartPractice);
         _closeWinodwButton.onClick.AddListener(CloseWindow);
+    }
+
+    private void StartPractice()
+    {
+        Dispose();
+        OnStartPractice?.Invoke(_data, _intensityDuration);
     }
 
     private void CloseWindow()

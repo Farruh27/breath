@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class WorldUiProvider : MonoBehaviour
 
     private ChoosingPracticeWindow _choosingPracticeWindow;
     private SettingsPracticeWindow _settingsPracticeWindow;
+    private PracticeWindow _practiceWindow;
     
     private void Start()
     {
@@ -20,10 +22,29 @@ public class WorldUiProvider : MonoBehaviour
         OpenChoosingPracticeWindow();
     }
 
+    private void OnDestroy()
+    {
+        UnSubscribesWindows();
+    }
+
     private void SubscribesWindows()
     {
         _choosingPracticeWindow.OnOpenSettingsPractice += OpenSettingsPractice;
+        
+        _settingsPracticeWindow.OnStartPractice += OpenPracticeWindow;
         _settingsPracticeWindow.OnCloseWindow += OpenChoosingPracticeWindow;
+        
+        _practiceWindow.OnCloseWindow += OpenSettingsPractice;
+    }
+
+    private void UnSubscribesWindows()
+    {
+        _choosingPracticeWindow.OnOpenSettingsPractice -= OpenSettingsPractice;
+        
+        _settingsPracticeWindow.OnStartPractice -= OpenPracticeWindow;
+        _settingsPracticeWindow.OnCloseWindow -= OpenChoosingPracticeWindow;
+        
+        _practiceWindow.OnCloseWindow -= OpenSettingsPractice;
     }
 
     private void OpenChoosingPracticeWindow()
@@ -38,11 +59,18 @@ public class WorldUiProvider : MonoBehaviour
         _settingsPracticeWindow.Init(practiceInfoData);
         ShowWindow(WindowType.SettingsPractice, true);
     }
+    
+    private void OpenPracticeWindow(PracticeInfoData practiceInfoData, int intensityDuration)
+    {
+        _practiceWindow.Init(practiceInfoData, intensityDuration);
+        ShowWindow(WindowType.Practice, false);
+    }
 
     private void FindWindows()
     {
         _choosingPracticeWindow = GetWindow(WindowType.ChoosingPractice) as ChoosingPracticeWindow;
         _settingsPracticeWindow = GetWindow(WindowType.SettingsPractice) as SettingsPracticeWindow;
+        _practiceWindow = GetWindow(WindowType.Practice) as PracticeWindow;
     }
     
     private Window GetWindow(WindowType type)
