@@ -17,6 +17,6 @@ MonoBehaviour:
     IconPractice: {fileID: 21300000, guid: 6ded88dc16ee20948a880d5e4003a03e, type: 3}
     MinTimePractice: 15
     MaxTimePractice: 40
-    SlowlyDuration: 1
-    NormalDuration: 2
-    QuicklyDuration: 3
+    SlowlyDuration: 7
+    NormalDuration: 3
+    QuicklyDuration: 2

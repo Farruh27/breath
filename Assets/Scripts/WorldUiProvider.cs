@@ -16,10 +16,21 @@ public class WorldUiProvider : MonoBehaviour
     private void Start()
     {
         FindWindows();
-        
+        SubscribesWindows();
+        OpenChoosingPracticeWindow();
+    }
+
+    private void SubscribesWindows()
+    {
+        _choosingPracticeWindow.OnOpenSettingsPractice += OpenSettingsPractice;
+        _settingsPracticeWindow.OnCloseWindow += OpenChoosingPracticeWindow;
+    }
+
+    private void OpenChoosingPracticeWindow()
+    {
         _choosingPracticeWindow.Init(_practicesPreset);
         ShowWindow(WindowType.ChoosingPractice, true);
-        _choosingPracticeWindow.OnOpenSettingsPractice += OpenSettingsPractice;
+        
     }
 
     private void OpenSettingsPractice(PracticeInfoData practiceInfoData)

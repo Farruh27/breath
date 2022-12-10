@@ -11,6 +11,8 @@ public class ChoosingPracticeWindow : Window
     
     public void Init(PracticesPreset practicesPreset)
     {
+        Dispose();
+        
         foreach (var slot in _slotProgramViews)
         {
             slot.Init(practicesPreset);
@@ -18,7 +20,7 @@ public class ChoosingPracticeWindow : Window
         }
     }
 
-    private void OnDestroy()
+    public override void Dispose()
     {
         foreach (var slot in _slotProgramViews)
             slot.OnClickSlot -= OpenSettingsPractice;
