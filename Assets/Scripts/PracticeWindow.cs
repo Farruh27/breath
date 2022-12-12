@@ -31,6 +31,7 @@ public class PracticeWindow : Window
     private Sequence _sequence;
     
     public Action<PracticeInfoData> OnCloseWindow;
+    public Action<PracticeInfoData> OnEndTime;
 
     public void Init(PracticeInfoData practiceInfoData, int intensityDuration)
     {
@@ -39,10 +40,16 @@ public class PracticeWindow : Window
         _practiceInfoData = practiceInfoData;
         
         _timer.Init(practiceInfoData.MaxTimePractice);
+        _timer.OnEndTime += EndTime;
         
         SubscriptionButtons();
         RefreshUi(practiceInfoData);
         RefreshAnimation(intensityDuration);
+    }
+
+    private void EndTime()
+    {
+        OnEndTime?.Invoke(_practiceInfoData);
     }
 
     private void RefreshUi(PracticeInfoData practiceInfoData)
@@ -74,6 +81,8 @@ public class PracticeWindow : Window
     {
         _closeButton.onClick.RemoveAllListeners();
         _settingsButton.onClick.RemoveAllListeners();
+        
+        _timer.OnEndTime -= EndTime;
     }
 
     private void CloseWindow()

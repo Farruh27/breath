@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public struct AntistressData
 {
+    public string Code;
     public string NamePractice;
     
     public Sprite IconPractice;

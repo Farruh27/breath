@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PracticesPreset
   m_EditorClassIdentifier: 
   _antistressData:
+    Code: antistress
     NamePractice: "\u0410\u043D\u0442\u0438\u0441\u0442\u0440\u0435\u0441\u0441"
     IconPractice: {fileID: 21300000, guid: 6ded88dc16ee20948a880d5e4003a03e, type: 3}
-    MinTimePractice: 15
-    MaxTimePractice: 40
+    MinTimePractice: 1
+    MaxTimePractice: 5
     SlowlyDuration: 7
     NormalDuration: 3
     QuicklyDuration: 2

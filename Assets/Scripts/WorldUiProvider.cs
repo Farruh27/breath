@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +13,7 @@ public class WorldUiProvider : MonoBehaviour
     private ChoosingPracticeWindow _choosingPracticeWindow;
     private SettingsPracticeWindow _settingsPracticeWindow;
     private PracticeWindow _practiceWindow;
+    private RatingWindow _ratingWindow;
     
     private void Start()
     {
@@ -35,6 +35,9 @@ public class WorldUiProvider : MonoBehaviour
         _settingsPracticeWindow.OnCloseWindow += OpenChoosingPracticeWindow;
         
         _practiceWindow.OnCloseWindow += OpenSettingsPractice;
+        _practiceWindow.OnEndTime += OpenRatingWindow;
+        
+        _ratingWindow.OnCloseWindow += OpenChoosingPracticeWindow;
     }
 
     private void UnSubscribesWindows()
@@ -45,6 +48,9 @@ public class WorldUiProvider : MonoBehaviour
         _settingsPracticeWindow.OnCloseWindow -= OpenChoosingPracticeWindow;
         
         _practiceWindow.OnCloseWindow -= OpenSettingsPractice;
+        _practiceWindow.OnEndTime -= OpenRatingWindow;
+        
+        _ratingWindow.OnCloseWindow -= OpenChoosingPracticeWindow;
     }
 
     private void OpenChoosingPracticeWindow()
@@ -65,12 +71,19 @@ public class WorldUiProvider : MonoBehaviour
         _practiceWindow.Init(practiceInfoData, intensityDuration);
         ShowWindow(WindowType.Practice, false);
     }
+    
+    private void OpenRatingWindow(PracticeInfoData practiceInfoData)
+    {
+        _ratingWindow.Init(practiceInfoData);
+        ShowWindow(WindowType.RatingWindow, true);
+    }
 
     private void FindWindows()
     {
         _choosingPracticeWindow = GetWindow(WindowType.ChoosingPractice) as ChoosingPracticeWindow;
         _settingsPracticeWindow = GetWindow(WindowType.SettingsPractice) as SettingsPracticeWindow;
         _practiceWindow = GetWindow(WindowType.Practice) as PracticeWindow;
+        _ratingWindow = GetWindow(WindowType.RatingWindow) as RatingWindow;
     }
     
     private Window GetWindow(WindowType type)

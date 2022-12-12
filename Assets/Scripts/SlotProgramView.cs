@@ -16,6 +16,9 @@ public class SlotProgramView : MonoBehaviour
     
     [SerializeField] 
     private TMP_Text _namePracticeLabel;
+    
+    [SerializeField] 
+    private StarsListSlotView _starsListSlotView;
 
     public Action<PracticeInfoData> OnClickSlot;
 
@@ -25,6 +28,7 @@ public class SlotProgramView : MonoBehaviour
     {
         RefreshSlot(practicesPreset);
         
+        _starsListSlotView.Init(_practiceData);
         _button.onClick.AddListener(SubscribeButton);
     }
 
@@ -52,7 +56,7 @@ public class SlotProgramView : MonoBehaviour
         {
             case PracticeType.Antistress:
                 var antistressData = practicesPreset.AntistressData;
-                var practiceData = new PracticeInfoData(antistressData.NamePractice, antistressData.IconPractice, antistressData.MinTimePractice,
+                var practiceData = new PracticeInfoData(antistressData.Code, antistressData.NamePractice, antistressData.IconPractice, antistressData.MinTimePractice,
                     antistressData.MaxTimePractice, antistressData.SlowlyDuration, antistressData.NormalDuration, antistressData.QuicklyDuration);
                 return practiceData;
             case PracticeType.SquareBreathing:

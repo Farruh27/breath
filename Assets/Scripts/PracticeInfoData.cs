@@ -2,6 +2,7 @@ using UnityEngine;
 
 public readonly struct PracticeInfoData
 {
+    public string Code { get; }
     public string NamePractice { get; }
     
     public Sprite IconPractice { get; }
@@ -13,9 +14,10 @@ public readonly struct PracticeInfoData
     public int NormalDuration { get; }
     public int QuicklyDuration { get; }
 
-    public PracticeInfoData(string namePractice, Sprite iconPractice, int minTimePractice, 
+    public PracticeInfoData(string code, string namePractice, Sprite iconPractice, int minTimePractice, 
         int maxTimePractice, int slowlyDuration, int normalDuration, int quicklyDuration)
     {
+        Code = code;
         NamePractice = namePractice;
         IconPractice = iconPractice;
         MinTimePractice = minTimePractice;
