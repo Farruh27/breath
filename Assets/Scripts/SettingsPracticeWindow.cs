@@ -20,25 +20,37 @@ public class SettingsPracticeWindow : Window
 
     [SerializeField] 
     private IntensityButtonsView _intensityButtonsView;
-    
+
+    [SerializeField] 
+    private TimeScroller _timeScroller;
+
     private PracticeInfoData _data;
     private int _intensityDuration;
+    private int _timePractice;
 
-    public Action<PracticeInfoData, int> OnStartPractice;
+    public Action<PracticeInfoData, int, int> OnStartPractice;
     public Action OnCloseWindow;
     
     private Sequence _sequence;
 
-    public void Init(PracticeInfoData practiceInfoData)
+    public void Init(PracticeInfoData data)
     {
         Dispose();
-        _data = practiceInfoData;
+        _data = data;
         
         _intensityButtonsView.OnClickSlot += RefreshTimeIntensity;
         _intensityButtonsView.Init();
         
+        _timeScroller.OnSelectedTime += SelectedTime;
+        _timeScroller.Init(data.MinTimePractice, data.MaxTimePractice);
+        
         SubscriptionButtons();
         RefreshUi();
+    }
+
+    private void SelectedTime(int time)
+    {
+        _timePractice = time;
     }
 
     private void SubscriptionButtons()
@@ -49,8 +61,8 @@ public class SettingsPracticeWindow : Window
 
     private void StartPractice()
     {
+        OnStartPractice?.Invoke(_data, _intensityDuration, _timePractice);
         Dispose();
-        OnStartPractice?.Invoke(_data, _intensityDuration);
     }
 
     private void CloseWindow()
@@ -63,8 +75,12 @@ public class SettingsPracticeWindow : Window
     {
         _startPracticeButton.onClick.RemoveAllListeners();
         _closeWinodwButton.onClick.RemoveAllListeners();
-        _intensityButtonsView.Dispose();
+        
         _intensityButtonsView.OnClickSlot -= RefreshTimeIntensity;
+        _intensityButtonsView.Dispose();
+        
+        _timeScroller.OnSelectedTime -= SelectedTime;
+        _timeScroller.Dispose();
     }
 
     private void RefreshUi()

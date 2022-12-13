@@ -33,13 +33,13 @@ public class PracticeWindow : Window
     public Action<PracticeInfoData> OnCloseWindow;
     public Action<PracticeInfoData> OnEndTime;
 
-    public void Init(PracticeInfoData practiceInfoData, int intensityDuration)
+    public void Init(PracticeInfoData practiceInfoData, int intensityDuration, int timePractice)
     {
         Dispose();
         
         _practiceInfoData = practiceInfoData;
         
-        _timer.Init(practiceInfoData.MaxTimePractice);
+        _timer.Init(timePractice);
         _timer.OnEndTime += EndTime;
         
         SubscriptionButtons();
