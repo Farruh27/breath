@@ -45,9 +45,11 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
 
         _currentScrollerTimeMoveState = ScrollerTimeMoveState.Drag;
         _scrollRect.normalizedPosition = Vector2.zero;
-        _currentIndexSlot = FirstIndexElement;
+        _currentIndexSlot = (LastIndexElement - FirstIndexElement) / 2;
 
-        SelectTime();
+        RefreshPosition(_currentIndexSlot - 1);
+        RefreshCurrentIndexSlot(_currentIndexSlot);
+        _scrollRect.content.localPosition = new Vector3(_endValuePositionX, _scrollRect.content.localPosition.y, 0);
     }
 
     private void CreateEmptySlot()
@@ -93,7 +95,9 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
         var multiply = eventData.delta.x > 0 ? -1 : 1;
         
         RefreshPosition(multiply);
-        RefreshCurrentIndexSlot(multiply);
+        
+        var currentIndexSlot = _currentIndexSlot + 1 * multiply;
+        RefreshCurrentIndexSlot(currentIndexSlot);
 
         _currentScrollerTimeMoveState = ScrollerTimeMoveState.Move;
     }
@@ -103,17 +107,24 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
         _endValuePositionX = _scrollRect.content.localPosition.x - WidthOneElement * multiply;
     }
 
-    private void RefreshCurrentIndexSlot(int multiply)
+    private void RefreshCurrentIndexSlot(int currentIndexSlot)
     {
-        var currentIndexSlot = _currentIndexSlot + 1 * multiply;
         _currentIndexSlot = Mathf.Clamp(currentIndexSlot, FirstIndexElement, LastIndexElement);
         SelectTime();
     }
 
     private void SelectTime()
     {
+        ResetColorInSlots();
+        _slots[_currentIndexSlot].ChangeSelectColor();
         var currentTime = _slots[_currentIndexSlot].Number;
         OnSelectedTime?.Invoke(currentTime);
+    }
+
+    private void ResetColorInSlots()
+    {
+        foreach (var slot in _slots)
+            slot.ChangeNotSelectColor();
     }
 }
 

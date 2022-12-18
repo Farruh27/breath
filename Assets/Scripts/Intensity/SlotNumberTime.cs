@@ -20,6 +20,17 @@ public class SlotNumberTime : MonoBehaviour
         _number = number;
         
         _label.text = number.ToString();
+        ChangeSelectColor();
+    }
+
+    public void ChangeSelectColor()
+    {
+        _label.color = Color.magenta;
+    }
+    
+    public void ChangeNotSelectColor()
+    {
+        _label.color = Color.black;
     }
 
     public void EmptyState()

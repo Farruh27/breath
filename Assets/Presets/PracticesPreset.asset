@@ -18,6 +18,15 @@ MonoBehaviour:
     IconPractice: {fileID: 21300000, guid: 6ded88dc16ee20948a880d5e4003a03e, type: 3}
     MinTimePractice: 10
     MaxTimePractice: 30
-    SlowlyDuration: 7
-    NormalDuration: 3
-    QuicklyDuration: 2
+    SlowlyDurationInhale: 2
+    SlowlyDelayInhale: 1
+    SlowlyDurationExhale: 2
+    SlowlyDelayExhale: 1
+    NormalDurationInhale: 3
+    NormalDelayInhale: 1
+    NormalDurationExhale: 3
+    NormalDelayExhale: 1
+    QuicklyDurationInhale: 4
+    QuicklyDelayInhale: 3
+    QuicklyDurationExhale: 4
+    QuicklyDelayExhale: 3

@@ -10,7 +10,7 @@ public class SettingsPracticeWindow : Window
     private TMP_Text _namePracticeLabel;
     
     [SerializeField] 
-    private Image _iconPractice;
+    private Transform _transformIcon;
     
     [SerializeField] 
     private Button _startPracticeButton;
@@ -25,10 +25,15 @@ public class SettingsPracticeWindow : Window
     private TimeScroller _timeScroller;
 
     private PracticeInfoData _data;
-    private int _intensityDuration;
+    
+    private float _intensityDurationInhale;
+    private float _intensityDelayInhale;
+    private float _intensityDurationExhale;
+    private float _intensityDelayExhale;
+
     private int _timePractice;
 
-    public Action<PracticeInfoData, int, int> OnStartPractice;
+    public Action<PracticeInfoData, IntensityData, int> OnStartPractice;
     public Action OnCloseWindow;
     
     private Sequence _sequence;
@@ -61,7 +66,9 @@ public class SettingsPracticeWindow : Window
 
     private void StartPractice()
     {
-        OnStartPractice?.Invoke(_data, _intensityDuration, _timePractice);
+        var intensityData = new IntensityData(_intensityDurationInhale, _intensityDelayInhale, 
+            _intensityDurationExhale, _intensityDelayExhale);
+        OnStartPractice?.Invoke(_data, intensityData, _timePractice);
         Dispose();
     }
 
@@ -86,18 +93,18 @@ public class SettingsPracticeWindow : Window
     private void RefreshUi()
     {
         _namePracticeLabel.text = _data.NamePractice;
-        _iconPractice.sprite = _data.IconPractice;
     }
 
     private void RefreshAnimation()
     {
-        var middleDuration = _intensityDuration / 2;
-        
-        _iconPractice.transform.localScale = Vector3.one;
+        _transformIcon.localScale = Vector3.one * 0.7f;
         
         _sequence = DOTween.Sequence();
-        _sequence.Append(_iconPractice.transform.DOScale(new Vector3(0.3f, 0.3f, 1), middleDuration));
-        _sequence.Append(_iconPractice.transform.DOScale(new Vector3(1f, 1f, 1), middleDuration));
+        _sequence.Append(_transformIcon.DOScale(new Vector3(1f, 1f, 1), _intensityDurationInhale));
+        _sequence.PrependInterval(_intensityDelayInhale);
+        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, _intensityDurationExhale));
+        _sequence.PrependInterval(_intensityDelayExhale);
+        
         _sequence.SetLoops(-1);
         _sequence.Restart();
     }
@@ -107,13 +114,24 @@ public class SettingsPracticeWindow : Window
         switch (intensityType)
         {
             case IntensityType.Slowly:
-                _intensityDuration = _data.SlowlyDuration;
+                _intensityDurationInhale = _data.SlowlyDurationInhale;
+                _intensityDelayInhale = _data.SlowlyDelayInhale;
+                _intensityDurationExhale = _data.SlowlyDurationExhale;
+                _intensityDelayExhale = _data.SlowlyDelayExhale;
                 break;
+            
             case IntensityType.Normal:
-                _intensityDuration = _data.NormalDuration;
+                _intensityDurationInhale = _data.NormalDurationInhale;
+                _intensityDelayInhale = _data.NormalDelayInhale;
+                _intensityDurationExhale = _data.NormalDurationExhale;
+                _intensityDelayExhale = _data.NormalDelayExhale;
                 break;
+            
             case IntensityType.Quickly:
-                _intensityDuration = _data.QuicklyDuration;
+                _intensityDurationInhale = _data.QuicklyDurationInhale;
+                _intensityDelayInhale = _data.QuicklyDelayInhale;
+                _intensityDurationExhale = _data.QuicklyDurationExhale;
+                _intensityDelayExhale = _data.QuicklyDelayExhale;
                 break;
         }
         

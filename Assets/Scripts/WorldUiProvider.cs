@@ -66,9 +66,9 @@ public class WorldUiProvider : MonoBehaviour
         ShowWindow(WindowType.SettingsPractice, true);
     }
     
-    private void OpenPracticeWindow(PracticeInfoData practiceInfoData, int intensityDuration, int timePractice)
+    private void OpenPracticeWindow(PracticeInfoData practiceInfoData, IntensityData intensityData, int timePractice)
     {
-        _practiceWindow.Init(practiceInfoData, intensityDuration, timePractice);
+        _practiceWindow.Init(practiceInfoData, intensityData, timePractice);
         ShowWindow(WindowType.Practice, false);
     }
     

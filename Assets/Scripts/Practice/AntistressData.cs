@@ -12,7 +12,18 @@ public struct AntistressData
     public int MinTimePractice;
     public int MaxTimePractice;
 
-    public int SlowlyDuration;
-    public int NormalDuration;
-    public int QuicklyDuration;
+    public float SlowlyDurationInhale;
+    public float SlowlyDelayInhale;
+    public float SlowlyDurationExhale;
+    public float SlowlyDelayExhale;
+    
+    public float NormalDurationInhale;
+    public float NormalDelayInhale;
+    public float NormalDurationExhale;
+    public float NormalDelayExhale;
+    
+    public float QuicklyDurationInhale;
+    public float QuicklyDelayInhale;
+    public float QuicklyDurationExhale;
+    public float QuicklyDelayExhale;
 }

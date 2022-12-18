@@ -55,9 +55,11 @@ public class SlotProgramView : MonoBehaviour
         switch (_practiceType)
         {
             case PracticeType.Antistress:
-                var antistressData = practicesPreset.AntistressData;
-                var practiceData = new PracticeInfoData(antistressData.Code, antistressData.NamePractice, antistressData.IconPractice, antistressData.MinTimePractice,
-                    antistressData.MaxTimePractice, antistressData.SlowlyDuration, antistressData.NormalDuration, antistressData.QuicklyDuration);
+                var data = practicesPreset.AntistressData;
+                var practiceData = new PracticeInfoData(data.Code, data.NamePractice, data.IconPractice, data.MinTimePractice,
+                    data.MaxTimePractice, data.SlowlyDurationInhale, data.NormalDurationInhale, data.QuicklyDurationInhale, data.SlowlyDelayInhale,
+                    data.SlowlyDurationExhale, data.SlowlyDelayExhale, data.NormalDelayInhale, data.NormalDurationExhale, data.NormalDelayExhale, data.QuicklyDelayInhale,
+                    data.QuicklyDurationExhale, data.QuicklyDelayExhale);
                 return practiceData;
             case PracticeType.SquareBreathing:
                 return default;

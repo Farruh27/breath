@@ -10,7 +10,7 @@ public class PracticeWindow : Window
     private TMP_Text _namePracticeLabel;
     
     [SerializeField] 
-    private Image _iconPractice;
+    private Transform _transformIcon;
 
     [SerializeField] 
     private Timer _timer;
@@ -33,7 +33,7 @@ public class PracticeWindow : Window
     public Action<PracticeInfoData> OnCloseWindow;
     public Action<PracticeInfoData> OnEndTime;
 
-    public void Init(PracticeInfoData practiceInfoData, int intensityDuration, int timePractice)
+    public void Init(PracticeInfoData practiceInfoData, IntensityData intensityData, int timePractice)
     {
         Dispose();
         
@@ -44,7 +44,7 @@ public class PracticeWindow : Window
         
         SubscriptionButtons();
         RefreshUi(practiceInfoData);
-        RefreshAnimation(intensityDuration);
+        RefreshAnimation(intensityData);
     }
 
     private void EndTime()
@@ -55,18 +55,18 @@ public class PracticeWindow : Window
     private void RefreshUi(PracticeInfoData practiceInfoData)
     {
         _namePracticeLabel.text = practiceInfoData.NamePractice;
-        _iconPractice.sprite = practiceInfoData.IconPractice;
     }
 
-    private void RefreshAnimation(int intensityDuration)
+    private void RefreshAnimation(IntensityData data)
     {
-        var middleDuration = intensityDuration / 2;
-        
-        _iconPractice.transform.localScale = Vector3.one;
+        _transformIcon.localScale = Vector3.one * 0.7f;
         
         _sequence = DOTween.Sequence();
-        _sequence.Append(_iconPractice.transform.DOScale(new Vector3(0.3f, 0.3f, 1), middleDuration));
-        _sequence.Append(_iconPractice.transform.DOScale(new Vector3(1f, 1f, 1), middleDuration));
+        _sequence.Append(_transformIcon.DOScale(Vector3.one, data.IntensityDurationInhale));
+        _sequence.Append(_transformIcon.DOScale(Vector3.one, data.IntensityDelayInhale));
+        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, data.IntensityDurationExhale));
+        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, data.IntensityDelayExhale));
+        
         _sequence.SetLoops(-1);
         _sequence.Restart();
     }
