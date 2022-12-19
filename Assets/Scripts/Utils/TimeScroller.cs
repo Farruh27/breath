@@ -45,7 +45,7 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
 
         _currentScrollerTimeMoveState = ScrollerTimeMoveState.Drag;
         _scrollRect.normalizedPosition = Vector2.zero;
-        _currentIndexSlot = (LastIndexElement - FirstIndexElement) / 2;
+        _currentIndexSlot = (LastIndexElement + FirstIndexElement) / 2;
 
         RefreshPosition(_currentIndexSlot - 1);
         RefreshCurrentIndexSlot(_currentIndexSlot);

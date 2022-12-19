@@ -62,13 +62,7 @@ public class PracticeWindow : Window
         _transformIcon.localScale = Vector3.one * data.StartScaleLungs;
         
         _sequence?.Kill();
-        _sequence = DOTween.Sequence();
-        _sequence.Append(_transformIcon.DOScale(Vector3.one, data.IntensityDurationInhale));
-        _sequence.AppendInterval(data.IntensityDelayInhale);
-        _sequence.Append(_transformIcon.DOScale(Vector3.one * data.StartScaleLungs, data.IntensityDurationExhale));
-        _sequence.AppendInterval(data.IntensityDelayExhale);
-        
-        _sequence.SetLoops(-1);
+        _sequence = TweenAnimationUtils.GetSequenceAnimationLungs(_transformIcon, data);
         _sequence.Restart();
     }
 
