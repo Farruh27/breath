@@ -9,6 +9,12 @@ public class SlotNumberTime : MonoBehaviour
     [SerializeField] 
     private TMP_Text _label;
     
+    [SerializeField] 
+    private Color _colorSelect;
+    
+    [SerializeField] 
+    private Color _colorNotSelect;
+    
     private int _number;
     
     public RectTransform Rect => _rect;
@@ -25,12 +31,12 @@ public class SlotNumberTime : MonoBehaviour
 
     public void ChangeSelectColor()
     {
-        _label.color = Color.magenta;
+        _label.color = _colorSelect;
     }
     
     public void ChangeNotSelectColor()
     {
-        _label.color = Color.black;
+        _label.color = _colorNotSelect;
     }
 
     public void EmptyState()

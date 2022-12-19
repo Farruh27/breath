@@ -15,7 +15,7 @@ MonoBehaviour:
   _antistressData:
     Code: antistress
     NamePractice: "\u0410\u043D\u0442\u0438\u0441\u0442\u0440\u0435\u0441\u0441"
-    IconPractice: {fileID: 21300000, guid: 6ded88dc16ee20948a880d5e4003a03e, type: 3}
+    IconPractice: {fileID: 21300000, guid: 5fb23533c27e434488a350259cb6f266, type: 3}
     MinTimePractice: 10
     MaxTimePractice: 30
     SlowlyDurationInhale: 2
