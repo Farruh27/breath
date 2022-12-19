@@ -12,6 +12,8 @@ public struct AntistressData
     public int MinTimePractice;
     public int MaxTimePractice;
 
+    public float StartScaleLungs;
+    
     public float SlowlyDurationInhale;
     public float SlowlyDelayInhale;
     public float SlowlyDurationExhale;

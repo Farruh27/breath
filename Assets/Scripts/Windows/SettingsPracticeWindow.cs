@@ -66,7 +66,7 @@ public class SettingsPracticeWindow : Window
 
     private void StartPractice()
     {
-        var intensityData = new IntensityData(_intensityDurationInhale, _intensityDelayInhale, 
+        var intensityData = new IntensityData(_data.StartScaleLungs, _intensityDurationInhale, _intensityDelayInhale, 
             _intensityDurationExhale, _intensityDelayExhale);
         OnStartPractice?.Invoke(_data, intensityData, _timePractice);
         Dispose();
@@ -97,13 +97,14 @@ public class SettingsPracticeWindow : Window
 
     private void RefreshAnimation()
     {
-        _transformIcon.localScale = Vector3.one * 0.7f;
+        _transformIcon.localScale = Vector3.one * _data.StartScaleLungs;
         
+        _sequence?.Kill();
         _sequence = DOTween.Sequence();
-        _sequence.Append(_transformIcon.DOScale(new Vector3(1f, 1f, 1), _intensityDurationInhale));
-        _sequence.PrependInterval(_intensityDelayInhale);
-        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, _intensityDurationExhale));
-        _sequence.PrependInterval(_intensityDelayExhale);
+        _sequence.Append(_transformIcon.DOScale(Vector3.one, _intensityDurationInhale));
+        _sequence.AppendInterval(_intensityDelayInhale);
+        _sequence.Append(_transformIcon.DOScale(Vector3.one * _data.StartScaleLungs, _intensityDurationExhale));
+        _sequence.AppendInterval(_intensityDelayExhale);
         
         _sequence.SetLoops(-1);
         _sequence.Restart();

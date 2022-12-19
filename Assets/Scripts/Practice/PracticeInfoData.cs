@@ -9,6 +9,8 @@ public readonly struct PracticeInfoData
     
     public int MinTimePractice { get; }
     public int MaxTimePractice { get; }
+    
+    public float StartScaleLungs { get; }
 
     public float SlowlyDurationInhale { get; }
     public float SlowlyDelayInhale  { get; }
@@ -27,7 +29,7 @@ public readonly struct PracticeInfoData
     
 
     public PracticeInfoData(string code, string namePractice, Sprite iconPractice, int minTimePractice, 
-        int maxTimePractice, float slowlyDurationInhale, float normalDurationInhale, float quicklyDurationInhale, 
+        int maxTimePractice, float startScaleLungs, float slowlyDurationInhale, float normalDurationInhale, float quicklyDurationInhale, 
         float slowlyDelayInhale, float slowlyDurationExhale, float slowlyDelayExhale, float normalDelayInhale, 
         float normalDurationExhale, float normalDelayExhale, float quicklyDelayInhale, float quicklyDurationExhale, 
         float quicklyDelayExhale)
@@ -37,6 +39,7 @@ public readonly struct PracticeInfoData
         IconPractice = iconPractice;
         MinTimePractice = minTimePractice;
         MaxTimePractice = maxTimePractice;
+        StartScaleLungs = startScaleLungs;
         SlowlyDurationInhale = slowlyDurationInhale;
         NormalDurationInhale = normalDurationInhale;
         QuicklyDurationInhale = quicklyDurationInhale;

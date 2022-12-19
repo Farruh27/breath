@@ -59,13 +59,14 @@ public class PracticeWindow : Window
 
     private void RefreshAnimation(IntensityData data)
     {
-        _transformIcon.localScale = Vector3.one * 0.7f;
+        _transformIcon.localScale = Vector3.one * data.StartScaleLungs;
         
+        _sequence?.Kill();
         _sequence = DOTween.Sequence();
         _sequence.Append(_transformIcon.DOScale(Vector3.one, data.IntensityDurationInhale));
-        _sequence.Append(_transformIcon.DOScale(Vector3.one, data.IntensityDelayInhale));
-        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, data.IntensityDurationExhale));
-        _sequence.Append(_transformIcon.DOScale(Vector3.one * 0.7f, data.IntensityDelayExhale));
+        _sequence.AppendInterval(data.IntensityDelayInhale);
+        _sequence.Append(_transformIcon.DOScale(Vector3.one * data.StartScaleLungs, data.IntensityDurationExhale));
+        _sequence.AppendInterval(data.IntensityDelayExhale);
         
         _sequence.SetLoops(-1);
         _sequence.Restart();
