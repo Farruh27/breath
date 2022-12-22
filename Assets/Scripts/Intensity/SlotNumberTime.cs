@@ -25,7 +25,10 @@ public class SlotNumberTime : MonoBehaviour
     {
         _number = number;
         
-        _label.text = number.ToString();
+        var seconds = Mathf.FloorToInt(((float) number) % 60);
+        var minutes = Mathf.FloorToInt(((float) number) / 60);
+        
+        _label.text = $"{minutes}m {seconds}s";
         ChangeSelectColor();
     }
 

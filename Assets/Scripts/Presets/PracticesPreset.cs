@@ -7,4 +7,9 @@ public class PracticesPreset : ScriptableObject
     private AntistressData _antistressData;
 
     public AntistressData AntistressData => _antistressData;
+
+    [SerializeField] 
+    private SquareBreathingData _squareBreathingData;
+
+    public SquareBreathingData SquareBreathingData => _squareBreathingData;
 }

@@ -15,19 +15,33 @@ MonoBehaviour:
   _antistressData:
     Code: antistress
     NamePractice: "\u0410\u043D\u0442\u0438\u0441\u0442\u0440\u0435\u0441\u0441"
+    PracticeType: 0
     IconPractice: {fileID: 21300000, guid: 5fb23533c27e434488a350259cb6f266, type: 3}
     MinTimePractice: 10
-    MaxTimePractice: 30
-    StartScaleLungs: 0.7
+    MaxTimePractice: 600
+    StepTimePractice: 10
+    StartScaleLungs: 0.75
     SlowlyDurationInhale: 2
-    SlowlyDelayInhale: 1
+    SlowlyDelayInhale: 0
     SlowlyDurationExhale: 2
-    SlowlyDelayExhale: 1
+    SlowlyDelayExhale: 0
     NormalDurationInhale: 3
-    NormalDelayInhale: 1
+    NormalDelayInhale: 0
     NormalDurationExhale: 3
-    NormalDelayExhale: 1
+    NormalDelayExhale: 0
     QuicklyDurationInhale: 4
-    QuicklyDelayInhale: 3
+    QuicklyDelayInhale: 0
     QuicklyDurationExhale: 4
-    QuicklyDelayExhale: 3
+    QuicklyDelayExhale: 0
+  _squareBreathingData:
+    Code: squareBreathing
+    NamePractice: "\u041A\u0432\u0430\u0434\u0440\u0430\u0442\u043D\u043E\u0435 \u0434\u044B\u0445\u0430\u043D\u0438\u0435"
+    PracticeType: 1
+    IconPractice: {fileID: 21300000, guid: cf9f248076724e94ab15969c0640ad97, type: 3}
+    MinTimePractice: 10
+    MaxTimePractice: 300
+    StepTimePractice: 10
+    StartScaleLungs: 0.75
+    DelayInhaleAndExhale: 2
+    MinTimeIntensityBreath: 1
+    MaxTimeIntensityBreath: 99

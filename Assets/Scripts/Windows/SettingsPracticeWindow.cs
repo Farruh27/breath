@@ -22,6 +22,9 @@ public class SettingsPracticeWindow : Window
     private IntensityButtonsView _intensityButtonsView;
 
     [SerializeField] 
+    private PlusMinusButtonsView _plusMinusButtonsView;
+
+    [SerializeField] 
     private TimeScroller _timeScroller;
 
     private PracticeInfoData _data;
@@ -42,15 +45,43 @@ public class SettingsPracticeWindow : Window
     {
         Dispose();
         _data = data;
-        
-        _intensityButtonsView.OnClickSlot += RefreshTimeIntensity;
-        _intensityButtonsView.Init();
+
+        ChangeStateWindow(data);
         
         _timeScroller.OnSelectedTime += SelectedTime;
-        _timeScroller.Init(data.MinTimePractice, data.MaxTimePractice);
+        _timeScroller.Init(data.MinTimePractice, data.MaxTimePractice, data.StepTimePractice);
         
         SubscriptionButtons();
         RefreshUi();
+    }
+
+    private void ChangeStateWindow(PracticeInfoData data)
+    {
+        switch (data.PracticeType)
+        {
+            case PracticeType.Antistress:
+                _intensityButtonsView.gameObject.SetActive(true);
+                _plusMinusButtonsView.gameObject.SetActive(false);
+                _intensityButtonsView.OnClickSlot += RefreshTimeIntensity;
+                _intensityButtonsView.Init();
+                break;
+            
+            case PracticeType.SquareBreathing:
+                _plusMinusButtonsView.gameObject.SetActive(true);
+                _intensityButtonsView.gameObject.SetActive(false);
+                _plusMinusButtonsView.OnChangeCount += RefreshLoopIntensity;
+                _plusMinusButtonsView.Init(data.MinTimeIntensityBreath, data.MaxTimeIntensityBreath);
+                break;
+            
+            case PracticeType.Wimhoff:
+                break;
+            
+            case PracticeType.Buteyko:
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void SelectedTime(int time)
@@ -86,6 +117,9 @@ public class SettingsPracticeWindow : Window
         _intensityButtonsView.OnClickSlot -= RefreshTimeIntensity;
         _intensityButtonsView.Dispose();
         
+        _plusMinusButtonsView.OnChangeCount -= RefreshLoopIntensity;
+        _plusMinusButtonsView.Dispose();
+        
         _timeScroller.OnSelectedTime -= SelectedTime;
         _timeScroller.Dispose();
     }
@@ -93,19 +127,6 @@ public class SettingsPracticeWindow : Window
     private void RefreshUi()
     {
         _namePracticeLabel.text = _data.NamePractice;
-    }
-
-    private void RefreshAnimation()
-    {
-        _transformIcon.localScale = Vector3.one * _data.StartScaleLungs;
-        
-        _sequence?.Kill();
-        
-        _sequence = TweenAnimationUtils.GetSequenceAnimationLungs(_transformIcon, _data.StartScaleLungs,
-            _intensityDurationInhale,
-            _intensityDelayInhale, _intensityDurationExhale, _intensityDelayExhale);
-        
-        _sequence.Restart();
     }
 
     private void RefreshTimeIntensity(IntensityType intensityType)
@@ -135,5 +156,28 @@ public class SettingsPracticeWindow : Window
         }
         
         RefreshAnimation();
+    }
+
+    private void RefreshLoopIntensity(int countLoop)
+    {
+        _intensityDurationInhale = countLoop;
+        _intensityDelayInhale = countLoop;
+        _intensityDurationExhale = countLoop;
+        _intensityDelayExhale = countLoop;
+
+        RefreshAnimation();
+    }
+
+    private void RefreshAnimation()
+    {
+        _transformIcon.localScale = Vector3.one * _data.StartScaleLungs;
+        
+        _sequence?.Kill();
+        
+        _sequence = TweenAnimationUtils.GetSequenceAnimationLungs(_transformIcon, _data.StartScaleLungs,
+            _intensityDurationInhale,
+            _intensityDelayInhale, _intensityDurationExhale, _intensityDelayExhale);
+        
+        _sequence.Restart();
     }
 }

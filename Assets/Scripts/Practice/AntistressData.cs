@@ -6,11 +6,14 @@ public struct AntistressData
 {
     public string Code;
     public string NamePractice;
+
+    public PracticeType PracticeType;
     
     public Sprite IconPractice;
     
     public int MinTimePractice;
     public int MaxTimePractice;
+    public int StepTimePractice;
 
     public float StartScaleLungs;
     
