@@ -10,6 +10,9 @@ public class SettingsPracticeWindow : Window
     private TMP_Text _namePracticeLabel;
     
     [SerializeField] 
+    private TMP_Text _pickerLabel;
+    
+    [SerializeField] 
     private Transform _transformIcon;
     
     [SerializeField] 
@@ -47,10 +50,6 @@ public class SettingsPracticeWindow : Window
         _data = data;
 
         ChangeStateWindow(data);
-        
-        _timeScroller.OnSelectedTime += SelectedTime;
-        _timeScroller.Init(data.MinTimePractice, data.MaxTimePractice, data.StepTimePractice);
-        
         SubscriptionButtons();
         RefreshUi();
     }
@@ -60,17 +59,11 @@ public class SettingsPracticeWindow : Window
         switch (data.PracticeType)
         {
             case PracticeType.Antistress:
-                _intensityButtonsView.gameObject.SetActive(true);
-                _plusMinusButtonsView.gameObject.SetActive(false);
-                _intensityButtonsView.OnClickSlot += RefreshTimeIntensity;
-                _intensityButtonsView.Init();
+                AntistressState(data);
                 break;
             
             case PracticeType.SquareBreathing:
-                _plusMinusButtonsView.gameObject.SetActive(true);
-                _intensityButtonsView.gameObject.SetActive(false);
-                _plusMinusButtonsView.OnChangeCount += RefreshLoopIntensity;
-                _plusMinusButtonsView.Init(data.MinTimeIntensityBreath, data.MaxTimeIntensityBreath);
+                SquareBreathingState(data);
                 break;
             
             case PracticeType.Wimhoff:
@@ -82,6 +75,32 @@ public class SettingsPracticeWindow : Window
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private void AntistressState(PracticeInfoData data)
+    {
+        _pickerLabel.text = "Время практики";
+        
+        _intensityButtonsView.gameObject.SetActive(true);
+        _plusMinusButtonsView.gameObject.SetActive(false);
+        _intensityButtonsView.OnClickSlot += RefreshTimeIntensity;
+        _intensityButtonsView.Init();
+                
+        _timeScroller.OnSelectedTime += SelectedTime;
+        _timeScroller.Init(data.MinTimePractice, data.MaxTimePractice, data.StepTimePractice, true);
+    }
+    
+    private void SquareBreathingState(PracticeInfoData data)
+    {
+        _pickerLabel.text = "Количество подходов";
+        
+        _plusMinusButtonsView.gameObject.SetActive(true);
+        _intensityButtonsView.gameObject.SetActive(false);
+        _plusMinusButtonsView.OnChangeCount += RefreshLoopIntensity;
+        _plusMinusButtonsView.Init(data.MinTimeIntensityBreath, data.MaxTimeIntensityBreath);
+                
+        _timeScroller.OnSelectedTime += SelectedTime;
+        _timeScroller.Init(data.MinNumberOfApproaches, data.MaxNumberOfApproaches, 1);
     }
 
     private void SelectedTime(int time)

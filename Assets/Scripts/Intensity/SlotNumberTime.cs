@@ -21,14 +21,15 @@ public class SlotNumberTime : MonoBehaviour
 
     public int Number => _number;
 
-    public void SetData(int number)
+    public void SetData(int number, bool isVisibleTime)
     {
         _number = number;
         
         var seconds = Mathf.FloorToInt(((float) number) % 60);
         var minutes = Mathf.FloorToInt(((float) number) / 60);
         
-        _label.text = $"{minutes}m {seconds}s";
+        _label.text = isVisibleTime ? $"{minutes}m {seconds}s" : number.ToString();
+        
         ChangeSelectColor();
     }
 

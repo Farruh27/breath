@@ -42,6 +42,7 @@ MonoBehaviour:
     MaxTimePractice: 300
     StepTimePractice: 10
     StartScaleLungs: 0.75
-    DelayInhaleAndExhale: 2
     MinTimeIntensityBreath: 1
     MaxTimeIntensityBreath: 99
+    MinNumberOfApproaches: 1
+    MaxNumberOfApproaches: 10

@@ -30,7 +30,7 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
     private List<SlotNumberTime> _slots = new List<SlotNumberTime>();
     private float _endValuePositionX;
 
-    public void Init(int minTime, int maxTime, int step)
+    public void Init(int minTime, int maxTime, int step, bool isVisibleTime = false)
     {
         CreateEmptySlot();
         
@@ -40,7 +40,7 @@ public class TimeScroller : MonoBehaviour, IDragHandler, IDisposable
                 continue;
             
             var slotInstance = Instantiate(_slotNumberTime, _scrollRect.content);
-            slotInstance.SetData(i);
+            slotInstance.SetData(i, isVisibleTime);
             _slots.Add(slotInstance);
         }
 

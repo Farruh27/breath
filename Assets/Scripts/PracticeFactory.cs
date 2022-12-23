@@ -38,7 +38,7 @@ public static class PracticeFactory
     {
         var data = squareBreathingData;
         var practiceData = new PracticeInfoData(data.PracticeType, data.Code, data.NamePractice, data.IconPractice, data.MinTimePractice, data.MaxTimePractice,
-            data.StepTimePractice, data.StartScaleLungs, data.MinTimeIntensityBreath, data.MaxTimeIntensityBreath);
+            data.StepTimePractice, data.StartScaleLungs, data.MinTimeIntensityBreath, data.MaxTimeIntensityBreath, data.MinNumberOfApproaches, data.MaxNumberOfApproaches);
         
         return practiceData;
     }

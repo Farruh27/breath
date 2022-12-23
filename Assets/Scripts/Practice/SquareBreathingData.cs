@@ -19,4 +19,7 @@ public struct SquareBreathingData
     
     public int MinTimeIntensityBreath;
     public int MaxTimeIntensityBreath;
+
+    public int MinNumberOfApproaches;
+    public int MaxNumberOfApproaches;
 }

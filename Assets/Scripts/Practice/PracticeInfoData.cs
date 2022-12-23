@@ -15,6 +15,8 @@ public readonly struct PracticeInfoData
     public float StartScaleLungs { get; }
     public int MinTimeIntensityBreath { get; }
     public int MaxTimeIntensityBreath { get; }
+    public int MinNumberOfApproaches { get; }
+    public int MaxNumberOfApproaches { get; }
 
     public float SlowlyDurationInhale { get; }
     public float SlowlyDelayInhale  { get; }
@@ -60,11 +62,13 @@ public readonly struct PracticeInfoData
         
         MinTimeIntensityBreath = default;
         MaxTimeIntensityBreath = default;
+        MinNumberOfApproaches = default;
+        MaxNumberOfApproaches = default;
     }
     
     public PracticeInfoData(PracticeType practiceType, string code, string namePractice, Sprite iconPractice, int minTimePractice, 
         int maxTimePractice, int stepTimePractice, float startScaleLungs, 
-        int minTimeIntensityBreath, int maxTimeIntensityBreath)
+        int minTimeIntensityBreath, int maxTimeIntensityBreath, int minNumberOfApproaches, int maxNumberOfApproaches)
     {
         PracticeType = practiceType;
         Code = code;
@@ -76,7 +80,9 @@ public readonly struct PracticeInfoData
         StartScaleLungs = startScaleLungs;
         MinTimeIntensityBreath = minTimeIntensityBreath;
         MaxTimeIntensityBreath = maxTimeIntensityBreath;
-        
+        MinNumberOfApproaches = minNumberOfApproaches;
+        MaxNumberOfApproaches = maxNumberOfApproaches;
+
         SlowlyDurationInhale = default;
         NormalDurationInhale = default;
         QuicklyDurationInhale = default;
