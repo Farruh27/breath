@@ -45,4 +45,4 @@ MonoBehaviour:
     MinTimeIntensityBreath: 1
     MaxTimeIntensityBreath: 99
     MinNumberOfApproaches: 1
-    MaxNumberOfApproaches: 10
+    MaxNumberOfApproaches: 11
